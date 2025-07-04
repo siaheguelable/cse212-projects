@@ -40,6 +40,8 @@ public static class Algorithms {
         for (var i = 0; i < size; ++i)
             count += 1;
 
+            //O(n) time complexity
+
         return count;
     }
 
@@ -54,6 +56,11 @@ public static class Algorithms {
         for (var i = 0; i < size; ++i)
         for (var j = 0; j < size; ++j)
             count += 1;
+
+        //O(n^2) time complexity
+        // The outer loop runs n times, and for each iteration of the outer loop,
+        // the inner loop runs n times as well. Therefore, the total number of iterations is n * n = n^2.
+        // but if one loop does not depend on the other, it is O(n) time complexity
 
         return count;
     }
@@ -73,6 +80,9 @@ public static class Algorithms {
             start = middle + 1;
             count += 1;
         }
+        //O(log n) time complexity
+        // The while loop continues until start is greater than end.
+        // In each iteration, the size of the problem is halved by updating the start index to middle + 1.
 
         return count;
     }
