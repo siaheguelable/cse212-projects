@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
+
 
 // DO NOT MODIFY THIS FILE
 
@@ -10,6 +12,7 @@ public class MultiplesOfTests
     {
         double[] multiples = Arrays.MultiplesOf(7, 5);
         CollectionAssert.AreEqual(new double[] { 7, 14, 21, 28, 35 }, multiples);
+        
     }
 
     [TestMethod]
