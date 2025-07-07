@@ -6,17 +6,20 @@ public static class Arrays
     /// integer greater than 0.
     /// </summary>
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
+    
+    
+    
     public static double[] MultiplesOf(double number, int length)
     {
-      // Step 1: Create a list or array to store the multiples (we don't know exact size for list, or use array of size 'count').
+        // Step 1: Create a list or array to store the multiples (we don't know exact size for list, or use array of size 'count').
 
-// Step 2: Loop from 1 to 'count'.
-// For each iteration:
-// - Compute the multiple by multiplying the number by the current index (e.g., number * i).
+        // Step 2: Loop from 1 to 'count'.
+        // For each iteration:
+        // - Compute the multiple by multiplying the number by the current index (e.g., number * i).
 
-// Step 3: Add the multiple to the list or assign to array position.
+        // Step 3: Add the multiple to the list or assign to array position.
 
-// Step 4: After the loop, return the list converted to array (if using list) or return the array.
+        // Step 4: After the loop, return the list converted to array (if using list) or return the array.
 
 
 
@@ -26,7 +29,7 @@ public static class Arrays
             multiples[i] = number * (i + 1);
         }
         return multiples;
-   
+
     }
 
     /// <summary>
