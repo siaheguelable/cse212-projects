@@ -10,6 +10,8 @@
     /// <param name="value">The value</param>
     /// <param name="priority">The priority</param>
     public void Enqueue(string value, int priority)
+    // Adds a new item to the priority queue with the specified value and priority
+    
     {
         var newNode = new PriorityItem(value, priority);
         _queue.Add(newNode);
@@ -37,6 +39,7 @@
     }
 
     public override string ToString()
+    // Returns a string representation of the queue
     {
         return $"[{string.Join(", ", _queue)}]";
     }
