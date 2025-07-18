@@ -11,7 +11,10 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:  the  defect is that the queue does not handle finite repetitions correctly.
+    // The expected result is not being returned as per the defined turns for each person.
+    //so the sue was returned all the time
+    
     public void TestTakingTurnsQueue_FiniteRepetition()
     {   // Create the people with their respective turns
         var bob = new Person("Bob", 2);
@@ -50,7 +53,9 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
-    // Defect(s) Found: 
+    // Defect(s) Found: The queue does not handle adding new players correctly.
+    // The expected result is not being returned as per the defined turns for each person.
+    // The defect is that the queue does not handle the addition of new players correctly after some have already taken their turns.
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         // Create the people with their respective turns
@@ -78,13 +83,13 @@ public class TakingTurnsQueueTests
             var person = players.GetNextPerson();
             Assert.AreEqual(expectedResult[i].Name, person.Name);
         }
-   // After 5 turns, add George with 3 turns
+        // After 5 turns, add George with 3 turns
         players.AddPerson("George", 3);
-// Continue running the queue until it is empty and verify the order of people
+        // Continue running the queue until it is empty and verify the order of people
         // being returned matches the expected result
         while (players.Length > 0)
 
-        
+
         {
             if (i >= expectedResult.Length)
             {
@@ -103,7 +108,8 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:  // The defect is that the queue does not handle infinite turns correctly.
+    // The expected result is not being returned as per the defined turns for each person.
     public void TestTakingTurnsQueue_ForeverZero()
     // Create the people with their respective turns
     {
@@ -140,7 +146,8 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found:  // The defect is that the queue does not handle infinite turns correctly.
+    // The expected result is not being returned as per the defined turns for each person.
     public void TestTakingTurnsQueue_ForeverNegative()
     // Create the people with their respective turns
     // Tim has negative turns, which should be treated as infinite turns.
@@ -175,7 +182,8 @@ public class TakingTurnsQueueTests
     [TestMethod]
     // Scenario: Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
-    // Defect(s) Found: 
+    // Defect(s) Found:  // The defect is that the queue does not handle empty states correctly.
+    // The expected behavior is to throw an InvalidOperationException with the message "No one in the queue."
     public void TestTakingTurnsQueue_Empty()
     // Create an empty TakingTurnsQueue and try to get the next person
     // This should throw an InvalidOperationException with the message "No one in the queue."

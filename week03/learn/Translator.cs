@@ -24,7 +24,17 @@ public class Translator
     /// <returns>fixed array of divisors</returns>
     public void AddWord(string fromWord, string toWord)
     {
-        // ADD YOUR CODE HERE
+        // The AddWord function should allow the user to add word translations (e.g. english to german)
+        if (string.IsNullOrWhiteSpace(fromWord) || string.IsNullOrWhiteSpace(toWord))
+        {
+            throw new ArgumentException("Both fromWord and toWord must be non-empty strings.");
+        }
+
+        _words[fromWord] = toWord;
+        // If the fromWord already exists, it will be updated with the new toWord
+        // If it does not exist, it will be added to the dictionary
+        Console.WriteLine($"Added translation: {fromWord} -> {toWord}");
+        // This line is just for debugging purposes, you can remove it if you want
     }
 
     /// <summary>
@@ -35,6 +45,10 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+        if (string.IsNullOrWhiteSpace(fromWord))
+        {
+            throw new ArgumentException("fromWord must be a non-empty string.");
+        }
+        return _words.TryGetValue(fromWord, out var toWord) ? toWord : "???";
     }
 }

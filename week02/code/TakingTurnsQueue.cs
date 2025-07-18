@@ -8,8 +8,12 @@
 /// not be added back into the queue.
 /// </summary>
 public class TakingTurnsQueue
+
 {
+    // The queue to hold the people
+    // Using a Queue<Person> to manage the order of people
     private readonly Queue<Person> _people = new();
+    
 
     public int Length => _people.Count;
 
@@ -19,6 +23,8 @@ public class TakingTurnsQueue
     /// <param name="name">Name of the person</param>
     /// <param name="turns">Number of turns remaining</param>
     public void AddPerson(string name, int turns)
+    // Adds a new person to the queue with the specified name and turns
+    // The person is added to the back of the queue
     {
         var person = new Person(name, turns);
         _people.Enqueue(person);
@@ -32,30 +38,33 @@ public class TakingTurnsQueue
     /// if the queue is empty.
     /// </summary>
     public Person GetNextPerson()
-{
-    if (_people.Count == 0)
+    // Returns the next person in the queue and manages their turns
+    // If the person has turns remaining, they are added back to the queue
     {
-        throw new InvalidOperationException("No one in the queue.");
-    }
+        if (_people.Count == 0)
+        // If the queue is empty, throw an exception
+        {
+            throw new InvalidOperationException("No one in the queue.");
+        }
 
-    Person person = _people.Dequeue();
+        Person person = _people.Dequeue();
 
-    if (person.Turns > 1)
-    {
-        person.Turns -= 1;
-        _people.Enqueue(person);
-    }
-    else if (person.Turns == 1)
-    {
-        // Do not enqueue again; this was their last turn
-        person.Turns -= 1;
-    }
-    else // person.Turns <= 0 means infinite turns
-    {
-        _people.Enqueue(person);
-    }
+        if (person.Turns > 1)
+        {
+            person.Turns -= 1;
+            _people.Enqueue(person);
+        }
+        else if (person.Turns == 1)
+        {
+            // Do not enqueue again; this was their last turn
+            person.Turns -= 1;
+        }
+        else // person.Turns <= 0 means infinite turns
+        {
+            _people.Enqueue(person);
+        }
 
-    return person;
-}
+        return person;
+    }
 
 }

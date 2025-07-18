@@ -6,9 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Enqueue items with different priorities
+    // Expected Result:  high priority, medium priority, low priority
+    // Defect(s) Found:  The defect is that the queue does not handle priority correctly.
     public void TestPriorityQueue_1()
     // Create a priority queue and enqueue items with different priorities
     // The item with the highest priority should be dequeued first.
@@ -31,9 +31,9 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario:  Enqueue items with different priorities and dequeue them
+    // Expected Result:  high priority, medium priority, low priority
+    // Defect(s) Found:  The defect is that the queue does not handle priority correctly.
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
@@ -51,4 +51,30 @@ public class PriorityQueueTests
     }
 
     // Add more test cases as needed below.
+    [TestMethod]
+    // Scenario: Dequeue from an empty queue
+    public void TestPriorityQueue_EmptyQueue()
+    {
+        var priorityQueue = new PriorityQueue();
+        Assert.ThrowsException<InvalidOperationException>(() => priorityQueue.Dequeue());
+    }
+
+    [TestMethod]
+    // Scenario: Enqueue multiple items with the same priority
+    public void TestPriorityQueue_SamePriority()    
+    {
+        var priorityQueue = new PriorityQueue();
+        priorityQueue.Enqueue("item1", 1);
+        priorityQueue.Enqueue("item2", 1);
+        priorityQueue.Enqueue("item3", 1);
+
+        var dequeuedItem1 = priorityQueue.Dequeue();
+        var dequeuedItem2 = priorityQueue.Dequeue();
+        var dequeuedItem3 = priorityQueue.Dequeue();
+
+        // The order of dequeuing should be the same as the order of enqueuing
+        Assert.AreEqual("item1", dequeuedItem1);
+        Assert.AreEqual("item2", dequeuedItem2);
+        Assert.AreEqual("item3", dequeuedItem3);
+    }
 }
