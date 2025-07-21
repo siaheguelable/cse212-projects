@@ -22,7 +22,26 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        var reversedWords = new HashSet<string>();
+        var pairs = new List<string>();
+
+        
+
+        foreach (var word in words)
+        {
+            if (word[0] == word[1]) continue;
+
+
+            var reversed = new string(word.Reverse().ToArray());
+            if (reversedWords.Contains(reversed) && word != reversed)
+            {
+                pairs.Add($"{word} & {reversed}");
+            }
+            reversedWords.Add(word);
+        }
+
+        return pairs.ToArray();
     }
 
     /// <summary>
@@ -43,6 +62,17 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            if (fields.Length < 4) continue; // Ensure there are enough fields
+            var degree = fields[3].Trim(); // Get the degree field and trim whitespace
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees[degree] = 1; // Initialize the count for this degree
+            }
+
         }
 
         return degrees;
@@ -67,7 +97,50 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+
+        // verify the lengths of the words are the same
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+        // create a dictionary to count the occurrences of each letter
+        var letterCounts = new Dictionary<char, int>();
+        // count the letters in word1
+        foreach (var c in word1.ToLower().Replace(" ", ""))
+        {
+            if (letterCounts.ContainsKey(c))
+            {
+                letterCounts[c]++;
+            }
+            else
+            {
+                letterCounts[c] = 1;
+            }
+        }
+        // subtract the counts using word2
+        foreach (var c in word2.ToLower().Replace(" ", ""))
+        {
+            if (letterCounts.ContainsKey(c))
+            {
+                letterCounts[c]--;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // check if all counts are zero
+        // if they are, then the words are anagrams
+        foreach (var count in letterCounts.Values)
+        {
+            if (count != 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
