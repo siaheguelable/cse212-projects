@@ -15,7 +15,12 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+        // Base case: if n is less than or equal to 0, return 0
+        if (n <= 0)
+        {
+            return 0;
+        }
+        return n * n + SumSquaresRecursive(n - 1);
     }
 
     /// <summary>
@@ -40,6 +45,26 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+
+        //If size == 0: return a list with one empty string ("").
+        if (size == 0)
+        {
+            results.Add(word);
+            return;
+        }
+
+        //For each letter: Remove the letter from the remaining list.
+        for (int i = 0; i < letters.Length; i++)
+        {
+            string remaining = letters.Remove(i, 1);
+            PermutationsChoose(results, remaining, size - 1, word + letters[i]);
+        }
+        //Recursively call the function with the remaining letters and size - 1.
+        //Add the current letter to the word being built.
+        //When size == 0, add the word to the results list.
+        //This will generate all permutations of the specified size.
+        // Note: The results list will contain all permutations of the specified size.
+        // The order of the results may vary.
     }
 
     /// <summary>
@@ -97,9 +122,19 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
-
+        // Initialize the dictionary for memoization if it is null
+        if (remember== null)
+        {
+            remember = new Dictionary<int, decimal>();
+        }   
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        if (remember.TryGetValue(s, out decimal cachedResult))
+        {
+            return cachedResult;
+        }
+
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+        remember[s] = ways;
         return ways;
     }
 
@@ -119,6 +154,23 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+
+        // Base case: if the pattern has no wildcards, add it to results
+        if (!pattern.Contains('*'))
+        {
+            results.Add(pattern);
+            return;
+        }
+        // Find the first wildcard in the pattern
+        int wildcardIndex = pattern.IndexOf('*');
+        // For each possible replacement of the wildcard (0 and 1)
+        for (char replacement = '0'; replacement <= '1'; replacement++)
+        {
+            // Create a new pattern with the wildcard replaced
+            string newPattern = pattern.Substring(0, wildcardIndex) + replacement + pattern.Substring(wildcardIndex + 1);
+            // Recursively call the function with the new pattern
+            WildcardBinary(newPattern, results);
+        }
     }
 
     /// <summary>
@@ -129,15 +181,21 @@ public static class Recursion
     {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
-        if (currPath == null) {
+        if (currPath == null)
+        {
             currPath = new List<ValueTuple<int, int>>();
         }
-        
+
         // currPath.Add((1,2)); // Use this syntax to add to the current path
+        currPath.Add((x, y));
 
         // TODO Start Problem 5
-        // ADD CODE HERE
-
-        // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
+        // Base case: if we are at the end square, add the current path to results
+        if (maze.IsEnd(x, y))
+        {
+            results.Add(string.Join(" -> ", currPath.Select(p => $"({p.Item1},{p.Item2})")));
+            return;
+        }
+       
     }
 }
